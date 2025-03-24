@@ -40,12 +40,13 @@
                 <div class="mb-3">
                     <label for="category" class="form-label">Category</label>
                     <select name="listing[category]" class="form-select" required>
-                        <option value="Electronics" <%= listing.category === "Electronics" ? "selected" : "" %>>Electronics</option>
-                        <option value="Automobile" <%= listing.category === "Automobile" ? "selected" : "" %>>Automobile</option>
-                        <option value="Furniture" <%= listing.category === "Furniture" ? "selected" : "" %>>Furniture</option>
-                        <option value="Real Estate" <%= listing.category === "Real Estate" ? "selected" : "" %>>Real Estate</option>
+                        <option value="">Select a category</option>
+                        <option value="Chemical" <%= listing.category === "Chemical" ? "selected" : "" %>>Chemical</option>
+                        <option value="Food" <%= listing.category === "Food" ? "selected" : "" %>>Food</option>
+                        <option value="Metal" <%= listing.category === "Metal" ? "selected" : "" %>>Metal</option>
+                        <option value="Construction" <%= listing.category === "Construction" ? "selected" : "" %>>Construction</option>
                         <option value="Other" <%= listing.category === "Other" ? "selected" : "" %>>Other</option>
-                    </select>
+                    </select>                    
                 </div>
 
                 <div class="mb-3">

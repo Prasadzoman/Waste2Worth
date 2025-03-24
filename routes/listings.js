@@ -46,6 +46,31 @@ router.post("/", isLoggedIn, wrapAsync(async (req, res, next) => {
     res.redirect("/listings");
 }));
 
+router.get("/filter", wrapAsync(async (req, res) => {
+    let { category } = req.query; // Use req.query for GET requests
+
+    if (!category || category === "") {
+        req.flash("error", "Please select a category.");
+        return res.redirect("/listings");
+    }
+
+    let listings = await Listing.find({ category });
+    res.render("listings/index", { listings });
+}));
+router.get("/search", wrapAsync(async (req, res) => {
+    let { name, location } = req.query;
+    let query = {};
+
+    if (name) {
+        query.title = new RegExp(name, "i"); // Case-insensitive search
+    }
+    if (location) {
+        query.location = new RegExp(location, "i"); // Case-insensitive search
+    }
+
+    let listings = await Listing.find(query);
+    res.render("listings/index", { listings });
+}));
 
 // ✅ View Cart Page (Fixed duplicate route)
 router.get("/cart", isLoggedIn, wrapAsync(async (req, res) => {
