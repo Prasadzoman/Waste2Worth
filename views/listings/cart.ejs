@@ -1,0 +1,47 @@
+<% layout("/layouts/boilerplate") %>
+
+<body>
+    <div class="container mt-4">
+        <h2 class="mb-4">Your Cart</h2>
+
+        <% if (cartItems.length === 0) { %>
+            <div class="alert alert-warning" role="alert">
+                Your cart is empty. <a href="/listings">Browse Listings</a> to add items.
+            </div>
+        <% } else { %>
+            <% for (let item of cartItems) { %>
+                <div class="row mb-4">
+                    <div class="col-md-8 offset-md-2">
+                        <div class="card shadow-sm border-0">
+                            <img src="<%= item.image %>" class="card-img-top" alt="Listing Image"
+                                style="height: 20rem; object-fit: cover;">
+                            <div class="card-body">
+                                <h4><%= item.title %></h4>
+                                <p class="card-text">
+                                    <i>Owner: <%= item.owner ? item.owner.username : "Unknown" %></i><br>
+                                    <strong>Category:</strong> <%= item.category %> <br>
+                                    <strong>Quantity:</strong> <%= item.quantity %> <br>
+                                    <strong>Price:</strong> ₹<%= item.price.toLocaleString("en-IN") %> <br>
+                                    <strong>Licence Required:</strong> 
+                                    <% if (item.licenceRequired) { %>
+                                        ✅ Yes
+                                    <% } else { %>
+                                        ❌ No
+                                    <% } %> <br>
+                                    <strong>Location:</strong> <%= item.location %>, <%= item.country %>
+                                </p>
+
+                                <div class="d-flex gap-2">
+                                    <form action="cart/remove/<%= item.id %>" method="post">
+                                        <button class="btn btn-outline-danger">Remove</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <% } %>
+        <% } %>
+    </div>
+</body>
+

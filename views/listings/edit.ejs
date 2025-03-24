@@ -1,0 +1,78 @@
+<% layout("/layouts/boilerplate") %>
+
+<body>
+    <div class="row">
+        <div class="col-8 offset-2">
+            <form method="POST" action="/listings/<%= listing._id %>?_method=PUT" novalidate class="needs-validation">
+                <input type="hidden" name="_method" value="PUT">
+                <br><br>
+
+                <div class="mb-3">
+                    <label for="title" class="form-label">Title</label>
+                    <input type="text" name="listing[title]" placeholder="Enter the title"
+                        value="<%= listing.title %>" class="form-control" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="imageUrl" class="form-label">Image URL</label>
+                    <input name="listing[image]" type="text" placeholder="Enter image URL"
+                        value="<%= listing.image %>" class="form-control" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="description" class="form-label">Description</label>
+                    <textarea name="listing[description]" class="form-control"
+                        placeholder="Enter description" required><%= listing.description %></textarea>
+                </div>
+
+                <div class="mb-3">
+                    <label for="price" class="form-label">Price</label>
+                    <input name="listing[price]" class="form-control" type="number" placeholder="Enter price"
+                        value="<%= listing.price %>" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="quantity" class="form-label">Quantity</label>
+                    <input name="listing[quantity]" class="form-control" type="number" placeholder="Enter quantity"
+                        value="<%= listing.quantity %>" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="category" class="form-label">Category</label>
+                    <select name="listing[category]" class="form-select" required>
+                        <option value="Electronics" <%= listing.category === "Electronics" ? "selected" : "" %>>Electronics</option>
+                        <option value="Automobile" <%= listing.category === "Automobile" ? "selected" : "" %>>Automobile</option>
+                        <option value="Furniture" <%= listing.category === "Furniture" ? "selected" : "" %>>Furniture</option>
+                        <option value="Real Estate" <%= listing.category === "Real Estate" ? "selected" : "" %>>Real Estate</option>
+                        <option value="Other" <%= listing.category === "Other" ? "selected" : "" %>>Other</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="licenceRequired" class="form-label">Licence Required</label>
+                    <select name="listing[licenceRequired]" class="form-select" required>
+                        <option value="true" <%= listing.licenceRequired ? "selected" : "" %>>Yes</option>
+                        <option value="false" <%= !listing.licenceRequired ? "selected" : "" %>>No</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="location" class="form-label">Location</label>
+                    <input type="text" class="form-control" name="listing[location]" placeholder="Enter location"
+                        value="<%= listing.location %>" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="country" class="form-label">Country</label>
+                    <input type="text" class="form-control" name="listing[country]" placeholder="Enter country"
+                        value="<%= listing.country %>" required>
+                </div>
+
+                <br><br>
+                <button type="submit" class="btn btn-dark edit-btn">Update</button>
+                <br><br>
+            </form>
+        </div>
+    </div>
+    <script src="/js/script.js"></script>
+</body>

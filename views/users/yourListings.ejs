@@ -1,0 +1,31 @@
+<% layout("/layouts/boilerplate") %>
+
+<body>
+    <div class="container mt-5">
+        <h2 class="mb-4">Your Listings</h2>
+
+        <% if(listings.length === 0) { %>
+            <p>You haven't created any listings yet.</p>
+            <a href="/listings/new" class="btn btn-dark">Create New Listing</a>
+        <% } else { %>
+            <div class="row">
+                <% listings.forEach(listing => { %>
+                    <div class="col-md-4">
+                        <div class="card mb-3">
+                            <img src="<%= listing.image %>" class="card-img-top" alt="Listing Image">
+                            <div class="card-body">
+                                <h5 class="card-title"><%= listing.title %></h5>
+                                <p class="card-text">&#8377;<%= listing.price.toLocaleString("en-IN") %></p>
+                                <a href="/listings/<%= listing._id %>" class="btn btn-dark">View</a>
+                                <a href="/listings/<%= listing._id %>/edit" class="btn btn-secondary">Edit</a>
+                                <form method="POST" action="/listings/<%= listing._id %>?_method=DELETE" style="display:inline;">
+                                    <button class="btn btn-danger">Delete</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                <% }) %>
+            </div>
+        <% } %>
+    </div>
+</body>
