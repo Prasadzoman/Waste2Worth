@@ -1,67 +1,74 @@
 <% layout("/layouts/boilerplate") %>
-<body>
-    <form method="post" action="/listings" novalidate class="needs-validation">
-        <div class="row">
-            <div class="col-8 offset-2">
-                <br><br>
-                <div class="mb-3">
-                    <label for="title" class="form-label">Title</label>
-                    <input type="text" name="listing[title]" placeholder="Enter the title" class="form-control" required>
-                </div>
 
-                <div class="mb-3">
-                    <label for="image" class="form-label">Image Link</label>
-                    <input name="listing[image]" type="text" placeholder="Enter image URL" class="form-control" required>
-                </div>
+    <body>
+        <form method="post" action="/listings" novalidate class="needs-validation" enctype="multipart/form-data">
+            <div class="row">
+                <div class="col-8 offset-2">
+                    <br><br>
+                    <div class="mb-3">
+                        <label for="title" class="form-label">Title</label>
+                        <input type="text" name="listing[title]" placeholder="Enter the title" class="form-control"
+                            required>
+                    </div>
 
-                <div class="mb-3">
-                    <label for="description" class="form-label">Description</label>
-                    <textarea name="listing[description]" placeholder="Enter description" class="form-control" required></textarea>
-                </div>
+                    <div class="mb-3">
+                        <label for="image" class="form-label">Image Upload</label>
+                        <input name="listing[image]" type="file" placeholder="Enter image URL" class="form-control"
+                            required>
+                    </div>
 
-                <div class="mb-3">
-                    <label for="price" class="form-label">Price</label>
-                    <input name="listing[price]" type="number" placeholder="Enter price" class="form-control" required>
-                </div>
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Description</label>
+                        <textarea name="listing[description]" placeholder="Enter description" class="form-control"
+                            required></textarea>
+                    </div>
 
-                <div class="mb-3">
-                    <label for="quantity" class="form-label">Quantity</label>
-                    <input name="listing[quantity]" type="number" placeholder="Enter quantity" class="form-control" required>
-                </div>
+                    <div class="mb-3">
+                        <label for="price" class="form-label">Price</label>
+                        <input name="listing[price]" type="number" placeholder="Enter price" class="form-control"
+                            required>
+                    </div>
 
-                <div class="mb-3">
-                    <label for="category" class="form-label">Category</label>
-                    <select name="listing[category]" class="form-select" required>
-                        <option value="">Select a category</option>
-                        <option value="Electronics">Chemical</option>
-                        <option value="Automobile">food</option>
-                        <option value="Furniture">metal</option>
-                        <option value="Real Estate">contruction</option>
-                        <option value="Other">Other</option>
-                    </select>
-                </div>
+                    <div class="mb-3">
+                        <label for="quantity" class="form-label">Quantity</label>
+                        <input name="listing[quantity]" type="number" placeholder="Enter quantity" class="form-control"
+                            required>
+                    </div>
 
-                <div class="mb-3">
-                    <label for="licenceRequired" class="form-label">Licence Required</label>
-                    <select name="listing[licenceRequired]" class="form-select" required>
-                        <option value="true">Yes</option>
-                        <option value="false">No</option>
-                    </select>
-                </div>
+                    <div class="mb-3">
+                        <label for="category" class="form-label">Category</label>
+                        <select name="listing[category]" class="form-select" required>
+                            <option value="Chemical">Chemical</option>
+                            <option value="Food">Food</option>
+                            <option value="Metal">Metal</option>
+                            <option value="Construction">Construction</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
 
-                <div class="mb-3">
-                    <label for="location" class="form-label">Location</label>
-                    <input type="text" name="listing[location]" placeholder="Enter location" class="form-control" required>
-                </div>
+                    <div class="mb-3">
+                        <label for="licenceRequired" class="form-label">Licence Required</label>
+                        <select name="listing[licenceRequired]" class="form-select" required>
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
+                        </select>
+                    </div>
 
-                <div class="mb-3">
-                    <label for="country" class="form-label">Country</label>
-                    <input type="text" name="listing[country]" placeholder="Enter country" class="form-control" required>
+                    <div class="mb-3">
+                        <label for="location" class="form-label">Location</label>
+                        <input type="text" name="listing[location]" placeholder="Enter location" class="form-control"
+                            required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="country" class="form-label">Country</label>
+                        <input type="text" name="listing[country]" placeholder="Enter country" class="form-control"
+                            required>
+                    </div>
+                    <br><br>
+                    <button class="btn btn-dark">Add</button>
+                    <br><br>
                 </div>
-                <br><br>
-                <button class="btn btn-dark">Add</button>
-                <br><br>
             </div>
-        </div>
-    </form>
-</body>
+        </form>
+    </body>

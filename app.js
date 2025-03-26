@@ -1,3 +1,7 @@
+if(process.env.NODE_ENV!=="production"){
+    require('dotenv').config();
+}
+
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
@@ -16,9 +20,23 @@ const passport=require("passport");
 const LocalStrategy=require("passport-local");
 const User=require("./models/user");
 const user=require("./routes/user")
+const db_url=process.env.DB_URL
+const MongoStore = require('connect-mongo');
 
+const store = MongoStore.create({
+    mongoUrl: db_url,
+    crypto:{
+        secret:"mysupersecretcode"
+    },
+    touchAfter: 24 * 3600 // time period in seconds
+});
+
+store.on("error",function(e){
+    console.log("session store error",e);
+})
 
 const sessionOptions={
+    store,
     secret:"mysupersecretcode",
     resave:false,
     saveUninitialized:true,
@@ -39,7 +57,7 @@ passport.deserializeUser(User.deserializeUser());
 main().catch(err => console.log(err));
 
 async function main() {
-    await mongoose.connect('mongodb://127.0.0.1:27017/trade');
+    await mongoose.connect(db_url);
 
     // use `await mongoose.connect('mongodb://user:password@127.0.0.1:27017/test');` if your database has auth enabled
 }

@@ -3,19 +3,19 @@
 <body>
     <div class="row">
         <div class="col-8 offset-2">
-            <form method="POST" action="/listings/<%= listing._id %>?_method=PUT" novalidate class="needs-validation">
+            <form method="POST" action="/listings/<%= listing._id %>?_method=PUT" enctype="multipart/form-data" novalidate class="needs-validation">
                 <input type="hidden" name="_method" value="PUT">
                 <br><br>
 
                 <div class="mb-3">
                     <label for="title" class="form-label">Title</label>
                     <input type="text" name="listing[title]" placeholder="Enter the title"
-                        value="<%= listing.title %>" class="form-control" required>
+                         class="form-control">
                 </div>
 
                 <div class="mb-3">
                     <label for="imageUrl" class="form-label">Image URL</label>
-                    <input name="listing[image]" type="text" placeholder="Enter image URL"
+                    <input name="listing[image]" type="file" placeholder="Enter image URL"
                         value="<%= listing.image %>" class="form-control" required>
                 </div>
 

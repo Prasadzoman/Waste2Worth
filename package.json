@@ -11,6 +11,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "cloudinary": "^2.6.0",
     "connect-flash": "^0.1.1",
     "ejs": "^3.1.10",
     "ejs-mate": "^4.0.0",
@@ -19,6 +20,7 @@
     "method-override": "^3.0.0",
     "mon": "^0.0.8",
     "mongoose": "^8.9.6",
+    "multer-storage-cloudinary": "^4.0.0",
     "node": "^23.7.0",
     "nodemon": "^3.1.9",
     "passport": "^0.7.0",

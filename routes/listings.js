@@ -6,6 +6,10 @@ const Listing = require("../models/listing");
 const { isLoggedIn, isOwner } = require("../middleware");
 const User = require("../models/user");
 const mongoose = require("mongoose");
+const {storage} = require("../cloudConfig");
+const multer  = require('multer')
+const upload = multer({ storage })
+
 
 // ✅ Get All Listings
 router.get("/", wrapAsync(async (req, res) => {
@@ -19,19 +23,25 @@ router.get("/new", isLoggedIn, (req, res) => {
 });
 
 // ✅ Create New Listing (Includes all schema fields)
-router.post("/", isLoggedIn, wrapAsync(async (req, res, next) => {
-    console.log(req.body);
+router.post("/", isLoggedIn, upload.single("listing[image]"), wrapAsync(async (req, res, next) => {
+    console.log("BODY:", req.body);
+    console.log("FILE:", req.file);
 
-    let { title, description, image, price, country, location, category, quantity, licenceRequired } = req.body.listing;
+    if (!req.file) {
+        req.flash("error", "Image upload failed. Please select an image.");
+        return res.redirect("/listings/new");
+    }
 
-    if (!title || !description || !image || !price || !location || !country || !category || quantity === undefined || licenceRequired === undefined) {
+    let { title, description, price, country, location, category, quantity, licenceRequired } = req.body.listing;
+
+    if (!title || !description || !price || !location || !country || !category || quantity === undefined || licenceRequired === undefined) {
         throw new ExpressError(400, "All fields are required.");
     }
 
     const newListing = new Listing({
         title,
         description,
-        image,  // ✅ Now it's a simple string
+        image: { url: req.file.path, filename: req.file.filename },
         price,
         location,
         country,
@@ -45,6 +55,7 @@ router.post("/", isLoggedIn, wrapAsync(async (req, res, next) => {
     req.flash("success", "New Listing Created");
     res.redirect("/listings");
 }));
+
 
 router.get("/filter", wrapAsync(async (req, res) => {
     let { category } = req.query; // Use req.query for GET requests
@@ -138,7 +149,7 @@ router.get("/:id/edit", isLoggedIn, isOwner, wrapAsync(async (req, res) => {
 
 // ✅ Update Listing
 // ✅ Update Listing
-router.put("/:id", isLoggedIn, isOwner, wrapAsync(async (req, res) => {
+router.put("/:id", isLoggedIn, isOwner,upload.single("listing[image]"), wrapAsync(async (req, res) => {
     let { id } = req.params;
     let { title, description, image, price, location, country, category, quantity, licenceRequired } = req.body.listing;
 
@@ -150,7 +161,7 @@ router.put("/:id", isLoggedIn, isOwner, wrapAsync(async (req, res) => {
     await Listing.findByIdAndUpdate(id, {
         title,
         description,
-        image, // ✅ Store as a simple string, just like in `POST /`
+        image: { url: req.file.path, filename: req.file.filename },
         price,
         location,
         country,

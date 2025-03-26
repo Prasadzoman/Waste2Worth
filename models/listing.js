@@ -5,13 +5,14 @@ const schema=mongoose.Schema;
 const Review=require("./review");
 const { type } = require('os');
 const { ref } = require('joi');
+const { url } = require('inspector');
 const listingSchema=new schema({
     title:{ type:String, required:true},
     description:String,
     image: {
-      type: String, 
-      required: true
-  },
+      url: String,
+      filename: String,
+    },
     price: { type: Number, required: true },
     location:String,
     country:String,
